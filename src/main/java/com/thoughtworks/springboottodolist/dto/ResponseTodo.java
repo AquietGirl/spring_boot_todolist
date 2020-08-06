@@ -9,6 +9,7 @@ public class ResponseTodo {
 
     public static ResponseTodo mapResponseTodoToTodoItem(TodoItem todoItem) {
         ResponseTodo responseTodo = new ResponseTodo();
+        responseTodo.setId(String.valueOf(todoItem.getId()));
         responseTodo.setContent(todoItem.getContent());
         responseTodo.setStatus(todoItem.getStatus().equals("true"));
         return responseTodo;

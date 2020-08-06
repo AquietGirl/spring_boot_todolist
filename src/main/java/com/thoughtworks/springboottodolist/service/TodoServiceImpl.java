@@ -1,5 +1,6 @@
 package com.thoughtworks.springboottodolist.service;
 
+import com.thoughtworks.springboottodolist.dto.RequestTodo;
 import com.thoughtworks.springboottodolist.dto.ResponseTodo;
 import com.thoughtworks.springboottodolist.entity.TodoItem;
 import com.thoughtworks.springboottodolist.respository.TodoItemRespository;
@@ -21,5 +22,11 @@ public class TodoServiceImpl implements TodoService {
        List<ResponseTodo> responseTodoList = new ArrayList<>();
        todoItemList.forEach(todoItem -> responseTodoList.add(ResponseTodo.mapResponseTodoToTodoItem(todoItem)));
        return responseTodoList;
+    }
+
+    @Override
+    public ResponseTodo addTodoItem(RequestTodo requestTodo) {
+        TodoItem todoItem = todoItemRespository.save(RequestTodo.mapRequestTodoToTodoItem(requestTodo));
+        return ResponseTodo.mapResponseTodoToTodoItem(todoItem);
     }
 }
