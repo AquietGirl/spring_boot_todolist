@@ -37,4 +37,12 @@ public class TodoServiceImpl implements TodoService {
         todoItemRespository.deleteById(id);
         return ResponseTodo.mapResponseTodoToTodoItem(todoItem);
     }
+
+    @Override
+    public ResponseTodo updateTodoItem(int id, RequestTodo requestTodo) {
+        TodoItem todoItem = todoItemRespository.findById(id).orElseThrow(() -> new NotFoundException("Not Found"));
+        todoItem.setContent(requestTodo.getContent());
+        todoItem.setStatus(requestTodo.getStatus()? "true" : "false");
+        return ResponseTodo.mapResponseTodoToTodoItem(todoItemRespository.save(todoItem));
+    }
 }
