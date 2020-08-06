@@ -1,6 +1,7 @@
 package com.thoughtworks.springboottodolist.service;
 
 import com.thoughtworks.springboottodolist.dto.RequestTodo;
+import com.thoughtworks.springboottodolist.dto.ResponseTodo;
 import com.thoughtworks.springboottodolist.entity.TodoItem;
 import com.thoughtworks.springboottodolist.respository.TodoItemRespository;
 import org.junit.jupiter.api.Assertions;
@@ -12,9 +13,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,7 +70,21 @@ class TodoServiceImplTest {
     }
 
     @Test
-    void deleteTodoItemById() {
+    void should_return_todoitem_id_1_when_delete_todoitem_given_id_1() {
+        //given
+        int id = 1;
+        TodoItem todoItem = new TodoItem();
+        todoItem.setId(1);
+        todoItem.setContent("content");
+        todoItem.setStatus("false");
+
+        when(todoItemRespository.findById(anyInt())).thenReturn(Optional.of(todoItem));
+
+        //when
+        String result = todoService.deleteTodoItemById(id).getId();
+
+        //then
+        Assertions.assertEquals("1", result);
     }
 
     @Test
