@@ -103,6 +103,26 @@ class TodoServiceImplTest {
     }
 
     @Test
-    void updateTodoItem() {
+    void should_return_true_status_when_update_todoitem_given_id_and_new_item() {
+        //given
+        int id = 1;
+        TodoItem todoItem = new TodoItem();
+        todoItem.setId(id);
+        todoItem.setContent("content");
+        todoItem.setStatus("false");
+        RequestTodo requestTodo = new RequestTodo();
+        requestTodo.setContent("content");
+        requestTodo.setStatus(true);
+
+        when(todoItemRespository.findById(anyInt())).thenReturn(Optional.of(todoItem));
+        todoItem.setStatus("true");
+        when(todoItemRespository.save(any())).thenReturn(todoItem);
+
+        //when
+        boolean result = todoService.updateTodoItem(id, requestTodo).isStatus();
+
+        //then
+        Assertions.assertTrue(result);
+
     }
 }
