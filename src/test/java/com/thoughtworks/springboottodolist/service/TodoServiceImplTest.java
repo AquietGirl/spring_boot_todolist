@@ -3,6 +3,7 @@ package com.thoughtworks.springboottodolist.service;
 import com.thoughtworks.springboottodolist.dto.RequestTodo;
 import com.thoughtworks.springboottodolist.dto.ResponseTodo;
 import com.thoughtworks.springboottodolist.entity.TodoItem;
+import com.thoughtworks.springboottodolist.exception.NotFoundException;
 import com.thoughtworks.springboottodolist.respository.TodoItemRespository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -85,6 +86,20 @@ class TodoServiceImplTest {
 
         //then
         Assertions.assertEquals("1", result);
+    }
+
+    @Test
+    void should_return_exception_when_delete_todoitem_given_id_1_not_found() {
+        //given
+        int id = 1;
+
+        when(todoItemRespository.findById(anyInt())).thenReturn(Optional.empty());
+
+        //when
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, ()-> todoService.deleteTodoItemById(id));
+
+        //then
+        Assertions.assertEquals("Not Found", notFoundException.getMessage());
     }
 
     @Test
