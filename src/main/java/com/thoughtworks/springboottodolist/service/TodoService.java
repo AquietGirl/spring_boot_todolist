@@ -9,4 +9,5 @@ public interface TodoService {
 
     List<ResponseTodo> getTodoList();
     ResponseTodo addTodoItem(RequestTodo requestTodo);
+    ResponseTodo deleteTodoItemById(int id);
 }
