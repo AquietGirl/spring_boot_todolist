@@ -28,7 +28,7 @@ public class TodoItem {
         this.content = content;
     }
 
-    public String isStatus() {
+    public String getStatus() {
         return status;
     }
 
