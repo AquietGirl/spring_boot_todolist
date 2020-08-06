@@ -125,4 +125,26 @@ class TodoServiceImplTest {
         Assertions.assertTrue(result);
 
     }
+
+    @Test
+    void should_return_exception_when_update_todoitem_given_id_and_new_item() {
+        //given
+        int id = 1;
+        TodoItem todoItem = new TodoItem();
+        todoItem.setId(id);
+        todoItem.setContent("content");
+        todoItem.setStatus("false");
+        RequestTodo requestTodo = new RequestTodo();
+        requestTodo.setContent("content");
+        requestTodo.setStatus(true);
+
+        when(todoItemRespository.findById(anyInt())).thenReturn(Optional.empty());
+
+        //when
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> todoService.updateTodoItem(id, requestTodo));
+
+        //then
+        Assertions.assertEquals("Not Found", notFoundException.getMessage());
+
+    }
 }
